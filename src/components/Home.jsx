@@ -6,8 +6,23 @@ const Home = () => {
     const [task, setTask] = useState([])
      const [input, setInput] = useState({
         todo:"",
+        dueDate:"",
+        dueTime:""
      })
-      const handleSubmit = (e) => {
+     
+      const handleInput = (e) => {
+        e.persist();
+        setInput({...input, [e.target.name]: e.target.value })
+        
+
+      }
+
+      const handleDelete = (indexToRemove) => {
+        const updatedList = task.filter((_, index) => index !== indexToRemove);
+        setTask(updatedList);
+        localStorage.setItem("todo-list", JSON.stringify(updatedList));
+      }
+       const handleSubmit = (e) => {
         e.preventDefault();
         if (input.todo.trim() === "") {
             alert("task can not be empty")
@@ -25,29 +40,13 @@ const Home = () => {
         const updatedList = [...task, newTask];
         setTask(updatedList)
         localStorage.setItem("todo-list", JSON.stringify(updatedList))
-        setInput({ todo: ""})
+        setInput({ list: "", dueDate:"", dueTime:""})
         alert('todo added')
-        const [input, setInput] = useState({
-            todo:"",
-            dueDate:"",
-            dueTime:""
-
-        })
+       
+       
         
         
         
-      }
-      const handleInput = (e) => {
-        e.persist();
-        setInput({...input, [e.target.name]: e.target.value })
-        
-
-      }
-
-      const handleDelete = (indexToRemove) => {
-        const updatedList = task.filter((_, index) => index !== indexToRemove);
-        setTask(updatedList);
-        localStorage.setItem("todo-list", JSON.stringify(updatedList));
       }
 
       useEffect(() => {
@@ -64,27 +63,29 @@ const Home = () => {
                     </div>
                      <div className="">
                            <form action="" onSubmit={handleSubmit}>
-                             <input type="text" value={input.list} onChange={handleInput} name="todo" placeholder="Enter activity" />
-                             <input type="date"  onChange={handleInput} name="dueDate" />
-                             <input type="time"  onChange={handleInput} name="dueTime" />
-                            <button type="submit" className="bg-success mt-3 text-white" style={{height:"30px", width:"50px"}}>Add</button>
+                             <input type="text" value={input.list} onChange={handleInput} style={{width:"250px"}} name="todo" placeholder="Enter activity" />
+                             <input type="date" value={input.dueDate}  onChange={handleInput} name="dueDate" required />
+                             <input type="time" value={input.dueTime}  onChange={handleInput} name="dueTime" />
+                            <button type="submit" required className="bg-success mt-3 text-white" style={{height:"30px", width:"50px"}}>Add</button>
 
                            </form>
                             <ul style={{listStyleType: "none"}}>
+                                <button style={{
+                                    
+                                        background: "red",
+                                        color:"white",
+                                        border: "none",
+                                         left:"20px",
+                                         marginRight:"10px",
+                                        borderRadius: "4px",
+                                        cursor: "pointer"
+                                       }} className="float-end mt-2 btn-sm me-3" onClick={() => handleDelete(index)}>remove</button>
                                 {task.map((item, index) => (
                                     <li key={index } style={{textDecoration: "none", height:"50px"}} className="m-3 bg-dark text-white">
                                         <div><strong>{item.text}</strong></div>
                                        <div> <small>on {item.dueDate}  by {item.dueTime}</small> </div>
                                         
-                                       <button style={{
-                                        background: "red",
-                                        color:"white",
-                                        border: "none",
-                                         marginTop:"-30px",
-                                         marginRight:"10px",
-                                        borderRadius: "4px",
-                                        cursor: "pointer"
-                                       }} className="float-end mb-3 btn-sm" onClick={() => handleDelete(index)}>remove</button>
+                                       
                                     </li>
                                   
                                 ))}
