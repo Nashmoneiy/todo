@@ -63,9 +63,12 @@ const Home = () => {
                     </div>
                      <div className="">
                            <form action="" onSubmit={handleSubmit}>
+                            <label className="text-dark">Activiuty</label>
                              <input type="text" value={input.list} onChange={handleInput} style={{width:"250px"}} name="todo" placeholder="Enter activity" />
+                             <label className="text-dark m-2" >Date</label>
                              <input type="date" value={input.dueDate}  onChange={handleInput} name="dueDate" required />
-                             <input type="time" value={input.dueTime}  onChange={handleInput} name="dueTime" />
+                             <label className="text-dark m-2">Time</label>
+                             <input type="time" value={input.dueTime}  onChange={handleInput} name="dueTime" placeholder="select time" />
                             <button type="submit" required className="bg-success mt-3 text-white" style={{height:"30px", width:"50px"}}>Add</button>
 
                            </form>
