@@ -27,6 +27,12 @@ const Home = () => {
         localStorage.setItem("todo-list", JSON.stringify(updatedList))
         setInput({ todo: ""})
         alert('todo added')
+        const [input, setInput] = useState({
+            todo:"",
+            dueDate:"",
+            dueTime:""
+
+        })
         
         
         
