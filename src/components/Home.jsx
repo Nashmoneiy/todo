@@ -70,21 +70,22 @@ const Home = () => {
 
                            </form>
                             <ul style={{listStyleType: "none"}}>
-                                <button style={{
+                               
+                                {task.map((item, index) => (
+                                    <li key={index } style={{textDecoration: "none", height:"50px"}} className="m-3 bg-dark text-white">
+                                        <div><strong>{item.text}</strong></div>
+                                       <div> <small>on {item.dueDate}  by {item.dueTime}</small> </div>
+                                         <button style={{
                                     
                                         background: "red",
                                         color:"white",
                                         border: "none",
                                          left:"20px",
-                                         marginRight:"10px",
+                                         marginTop:"-3%",
+                                       
                                         borderRadius: "4px",
                                         cursor: "pointer"
-                                       }} className="float-end mt-2 btn-sm me-3" onClick={() => handleDelete(index)}>remove</button>
-                                {task.map((item, index) => (
-                                    <li key={index } style={{textDecoration: "none", height:"50px"}} className="m-3 bg-dark text-white">
-                                        <div><strong>{item.text}</strong></div>
-                                       <div> <small>on {item.dueDate}  by {item.dueTime}</small> </div>
-                                        
+                                       }} className="float-end btn-sm me-3" onClick={() => handleDelete(index)}>remove</button>
                                        
                                     </li>
                                   
